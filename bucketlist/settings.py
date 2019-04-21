@@ -25,7 +25,7 @@ SECRET_KEY = '9&j*h4o=ejesk4@$9x_8&t1pf9marccvvym^*m1#y!kjm8uh_n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cake-django.appspot.com', '0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -120,3 +120,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
