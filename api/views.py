@@ -6,12 +6,12 @@ from .models import BucketList
 # Create your views here.
 
 
-class CreateView(generics.CreateAPIView):
+class CreateView(generics.ListCreateAPIView):
     queryset = BucketList.objects.all()
     serializer_class = BucketlistSerializer
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(owner=self.request.user)
 
 
 class DetailsView(generics.RetrieveUpdateDestroyAPIView):

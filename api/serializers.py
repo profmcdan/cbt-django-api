@@ -3,6 +3,8 @@ from .models import BucketList
 
 
 class BucketlistSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = BucketList
         fields = '__all__'

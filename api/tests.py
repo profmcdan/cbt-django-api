@@ -2,6 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import BucketList
 # Create your tests here.
@@ -12,8 +13,9 @@ class BucketListModelTestCase(TestCase):
 
     def setUp(self):
         """Define the test client and other test variables."""
-        self.bucketlist_name = "Write world class code"
-        self.bucketlist = BucketList(name=self.bucketlist_name)
+        user = User.objects.create(username="nerd")
+        self.name = "Write world class code"
+        self.bucketlist = BucketList(name=self.name, owner=user)
 
     def test_model_can_create_a_bucketlist(self):
         """Test the bucketlist model can create a bucketlist."""
@@ -28,8 +30,10 @@ class ViewTestCase(TestCase):
 
     def setUp(self):
         """Define the test client and other test variables."""
+        user = User.objects.create(username="nerd")
         self.client = APIClient()
-        self.bucketlist_data = {'name': 'Go to Ibiza'}
+        self.client.force_authenticate(user=user)
+        self.bucketlist_data = {'name': 'Go to Ibiza', 'owner': user.id}
         self.response = self.client.post(
             reverse('create'), self.bucketlist_data, format='json')
 
